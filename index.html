@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="guideOverlay">
+    <div id="guideContent">
+      <h1>🐉 Dragon Tamagotchi Guide 🐉</h1>
+      <p>Welcome to the ultimate dragon raising experience!</p>
+      <ul>
+        <li><strong>🍖 Feed & 💧 Drink:</strong> Keep hunger and thirst high to stay healthy. Don't overfeed!</li>
+        <li><strong>🎮 Play & 🧹 Clean:</strong> Keep your dragon happy and clean. Poop appears over time!</li>
+        <li><strong>🏋️ Train & ⚔️ Battle:</strong> Increase discipline and earn coins by battling.</li>
+        <li><strong>💤 Sleep & 💊 Heal:</strong> Restore energy and cure sickness.</li>
+        <li><strong>Evolution:</strong> Your dragon evolves as it levels up. High stats unlock Mythic elements!</li>
+      </ul>
+      <button id="btnStartGame" onclick="document.getElementById('guideOverlay').style.display='none'">Start Game</button>
+    </div>
+  </div>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="2560" height="1440"></canvas>
+    
+    <div id="tabNav">
+      <button class="tabBtn active" onclick="game.switchTab('home')">🏠 Home</button>
+      <button class="tabBtn" onclick="game.switchTab('stats')">📊 Stats</button>
+      <button class="tabBtn" onclick="game.switchTab('shop')">🛒 Shop</button>
+    </div>
+
+    <div id="ui-layer">
+      <div id="tab-home" class="tab-content active-tab">
+        <div id="buttons">
+          <button id="btnFeed" onclick="game.feedDragon()">🍖 Feed</button>
+          <button id="btnDrink" onclick="game.drinkDragon()">💧 Drink</button>
+          <button id="btnPlay" onclick="game.playWithDragon()">🎮 Play</button>
+          <button id="btnSleep" onclick="game.toggleSleep()">💤 Sleep</button>
+          <button id="btnClean" onclick="game.cleanDragon()">🧹 Clean</button>
+          <button id="btnTrain" onclick="game.trainDragon()">🏋️ Train</button>
+          <button id="btnBattle" onclick="game.battle()">⚔️ Battle</button>
+          <button id="btnHeal" onclick="game.healDragon()">💊 Heal</button>
+          <button id="btnExplore" onclick="game.explore()">🗺️ Explore</button>
+        </div>
+      </div>
+      
+      <div id="tab-stats" class="tab-content">
+        <div class="panel">
+          <h2>Dragon Stats</h2>
+          <p id="stat-level">Level: 1</p>
+          <p id="stat-exp">EXP: 0 / 100</p>
+          <p id="stat-age">Age: 0 days</p>
+          <p id="stat-weight">Weight: 10 lbs</p>
+          <p id="stat-discipline">Discipline: 50%</p>
+          <p id="stat-happiness">Happiness: 100%</p>
+          <p id="stat-health">Health: 100%</p>
+        </div>
+      </div>
+      
+      <div id="tab-shop" class="tab-content">
+        <div class="panel">
+          <h2>Item Shop</h2>
+          <p>Coins: <span id="shop-coins">0</span></p>
+          <div id="buttons">
+            <button onclick="game.buyItem('premium_food', 50)">🍖 Premium Food (50c)</button>
+            <button onclick="game.buyItem('toy', 100)">🧸 Toy (100c)</button>
+            <button onclick="game.buyItem('medicine', 75)">💊 Medicine (75c)</button>
+            <button onclick="game.buyItem('room_neon', 200)">🌌 Neon Room (200c)</button>
+            <button onclick="game.buyItem('room_nature', 200)">🌲 Nature Room (200c)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="GameObject.js"></script>
+  <script src="Dragon.js"></script>
+  <script src="Particle.js"></script>
+  <script src="Poop.js"></script>
+  <script src="Food.js"></script>
+  <script src="Game.js"></script>
+  <script>
+    const game = new Game(document.getElementById('gameCanvas'));
+    window.game = game;
+    game.start();
+  </script>
+</body>
+</html>
