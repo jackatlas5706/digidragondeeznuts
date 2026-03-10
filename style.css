@@ -1,0 +1,188 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+#gameContainer {
+  width: 100%; height: 100%;
+  display: flex; justify-content: center; align-items: center;
+  overflow: hidden; background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%); position: relative;
+}
+
+#gameCanvas {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+#tabNav {
+  position: absolute; bottom: 180px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 8px;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.tabBtn {
+  padding: 12px 24px; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;
+  background: rgba(20, 20, 35, 0.8); color: #888;
+  border: 2px solid #333; border-bottom: none; border-radius: 12px 12px 0 0;
+  cursor: pointer; font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.tabBtn:hover {
+  background: rgba(40, 40, 60, 0.9);
+  color: #ddd;
+}
+
+.tabBtn.active {
+  background: rgba(30, 30, 50, 0.95);
+  color: #00d2ff; border-color: #00d2ff;
+  box-shadow: 0 -5px 15px rgba(0, 210, 255, 0.2);
+}
+
+#ui-layer {
+  position: absolute; bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  background: rgba(20, 20, 35, 0.85);
+  border: 2px solid #00d2ff;
+  border-radius: 16px;
+  padding: 25px;
+  width: 850px;
+  min-height: 150px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0, 210, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.tab-content { display: none; animation: fadeIn 0.3s ease; }
+.tab-content.active-tab { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel {
+  color: #e0e0e0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.panel h2 { 
+  margin-bottom: 15px; 
+  color: #00d2ff; 
+  text-transform: uppercase; 
+  letter-spacing: 2px;
+  font-size: 24px;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+}
+
+.panel p { 
+  margin-bottom: 8px; 
+  font-size: 16px; 
+  background: rgba(0,0,0,0.3);
+  padding: 8px 15px;
+  border-radius: 8px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  border-left: 3px solid #00d2ff;
+}
+
+#buttons {
+  display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
+}
+
+#buttons button {
+  padding: 12px 20px; font-size: 16px; border: none;
+  border-radius: 12px; 
+  background: linear-gradient(135deg, #2a2a4a, #1a1a2e);
+  color: #fff; cursor: pointer; font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  border: 1px solid #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#buttons button:hover {
+  transform: translateY(-3px) scale(1.05); 
+  background: linear-gradient(135deg, #3a3a6a, #2a2a4a);
+  border-color: #00d2ff;
+  box-shadow: 0 8px 20px rgba(0, 210, 255, 0.3);
+}
+
+#buttons button:active { 
+  transform: translateY(1px) scale(0.98); 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+#guideOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 100;
+  color: white;
+  backdrop-filter: blur(8px);
+}
+
+#guideContent {
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  border: 2px solid #00d2ff;
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(0, 210, 255, 0.2);
+}
+
+#guideContent h1 {
+  color: #00d2ff;
+  margin-bottom: 25px;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#guideContent p {
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+#guideContent ul {
+  text-align: left;
+  margin-bottom: 35px;
+  padding-left: 20px;
+}
+
+#guideContent li {
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+#guideContent button {
+  padding: 15px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #00d2ff, #0077ff);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 119, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#guideContent button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 119, 255, 0.6);
+}
